@@ -40,27 +40,21 @@ func getData(post *PostBody) {
 
 	var result map[string]interface{}
 	if err := json.Unmarshal([]byte(body), &result); err == nil {
-
-		//		fmt.Println(data["data"])
 		data, ok := result["data"].(map[string]interface{})
 		if !ok {
 			panic(err)
 		}
 		fmt.Println(data["items"])
-		//		for _, v := range data["data"] {
-		//			fmt.Println(v)
-		//		}
 
-		//		fmt.Println(dd["itmes"])
-		//		fmt.Printf("Type:%T", dd["items"])
+		fmt.Printf("Type: %T, Value: %v\n", data["items"], data["items"])
 	}
 
 }
 
 func main() {
 
-	num := "000002.SZ"
-	date := "20190331"
+	num := "300093.SZ"
+	date := "20181231"
 
 	//利润表
 	income := PostBody{Token, "", nil, ""}
@@ -69,7 +63,7 @@ func main() {
 		"ts_code": num,
 		"period":  date,
 	}
-	income.FIELDS = ""
+	//	income.FIELDS = "int_income"
 
 	//资产负载表
 	balancesheet := PostBody{Token, "", nil, ""}
@@ -78,7 +72,7 @@ func main() {
 		"ts_code": num,
 		"period":  date,
 	}
-	balancesheet.FIELDS = ""
+	//	balancesheet.FIELDS = ""
 
 	//现金流量表
 	cashflow := PostBody{Token, "", nil, ""}
@@ -87,25 +81,7 @@ func main() {
 		"ts_code": num,
 		"period":  date,
 	}
-	cashflow.FIELDS = ""
-
-	//业绩预告
-	forecast := PostBody{Token, "", nil, ""}
-	forecast.API_NAME = "forecast"
-	forecast.PARAMS = map[string]string{
-		"ts_code": num,
-		"period":  date,
-	}
-	forecast.FIELDS = ""
-
-	//业绩快报
-	express := PostBody{Token, "", nil, ""}
-	express.API_NAME = "express"
-	express.PARAMS = map[string]string{
-		"ts_code": num,
-		"period":  date,
-	}
-	express.FIELDS = ""
+	//	cashflow.FIELDS = ""
 
 	//财务指标数据
 	indicator := PostBody{Token, "", nil, ""}
@@ -115,22 +91,45 @@ func main() {
 		"period":  date,
 	}
 	indicator.FIELDS = ""
+	/*
+		//业绩预告
+		forecast := PostBody{Token, "", nil, ""}
+		forecast.API_NAME = "forecast"
+		forecast.PARAMS = map[string]string{
+			"ts_code": num,
+			"period":  date,
+		}
+		forecast.FIELDS = ""
 
-	//主营业务
-	mainbz := PostBody{Token, "", nil, ""}
-	mainbz.API_NAME = "fina_mainbz"
-	mainbz.PARAMS = map[string]string{
-		"ts_code": num,
-	}
-	mainbz.FIELDS = ""
+		//业绩快报
+		express := PostBody{Token, "", nil, ""}
+		express.API_NAME = "express"
+		express.PARAMS = map[string]string{
+			"ts_code": num,
+			"period":  date,
+		}
+		express.FIELDS = ""
 
-	report := PostBody{Token, "", nil, ""}
-	report.API_NAME = "disclosure_date"
-	report.PARAMS = map[string]string{
-		"ts_code": num,
-	}
+		//主营业务
+		mainbz := PostBody{Token, "", nil, ""}
+		mainbz.API_NAME = "fina_mainbz"
+		mainbz.PARAMS = map[string]string{
+			"ts_code": num,
+			"period":  date,
+		}
+		mainbz.FIELDS = ""
 
-	getData(&mainbz)
+		report := PostBody{Token, "", nil, ""}
+		report.API_NAME = "disclosure_date"
+		report.PARAMS = map[string]string{
+			"ts_code": num,
+			"period":  date,
+		}
+	*/
+	getData(&income)
+	//	getData(&balancesheet)
+	//	getData(&cashflow)
+	//	getData(&indicator)
 	//	fmt.Println("response Body:", string(body))
 
 }
